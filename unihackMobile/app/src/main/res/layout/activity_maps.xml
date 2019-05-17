@@ -15,13 +15,14 @@
         tools:context=".MapsActivity" >
 
         <Button
+            android:id="@+id/list_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|top"
-            android:text="Demo Button"
-            android:padding="10dp"
+            android:layout_gravity="end|bottom"
             android:layout_marginTop="20dp"
-            android:paddingRight="10dp"/>
+            android:padding="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/list_button" />
     </fragment>
     <TextView
         android:id="@+id/textView"

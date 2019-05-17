@@ -2,5 +2,6 @@
     <string name="app_name">unihack</string>
     <string name="title_activity_maps">Map</string>
     <string name="top_map">Map</string>
+    <string name="list_button">List Bins</string>
 
 </resources>
