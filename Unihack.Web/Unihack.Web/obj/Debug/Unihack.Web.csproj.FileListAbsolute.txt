@@ -118,6 +118,6 @@ C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.cspr
 C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.csproj.CopyComplete
 C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.dll
 C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.pdb
-C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\bin\Models.exe
-C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\bin\Models.pdb
-C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\bin\Models.exe.config
+C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.Migrations.InitialCreate.resources
+C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.csproj.GenerateResource.cache
+C:\Users\Marcela\source\repos\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.Migrations.Ceva.resources
