@@ -1,0 +1,7 @@
+C:\Users\Marcela\source\repos\Unihack.Web\Models\bin\Debug\Models.exe.config
+C:\Users\Marcela\source\repos\Unihack.Web\Models\bin\Debug\Models.exe
+C:\Users\Marcela\source\repos\Unihack.Web\Models\bin\Debug\Models.pdb
+C:\Users\Marcela\source\repos\Unihack.Web\Models\obj\Debug\Models.csprojAssemblyReference.cache
+C:\Users\Marcela\source\repos\Unihack.Web\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+C:\Users\Marcela\source\repos\Unihack.Web\Models\obj\Debug\Models.exe
+C:\Users\Marcela\source\repos\Unihack.Web\Models\obj\Debug\Models.pdb
