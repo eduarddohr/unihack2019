@@ -202,11 +202,13 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\BinViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\add-manager.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -214,14 +216,20 @@
     <Content Include="Content\easy-loading.css" />
     <Content Include="Content\easy-loading.min.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\home.css" />
+    <Content Include="Content\Images\bin.jpg" />
     <Content Include="Content\Images\comment.png" />
     <Content Include="Content\Images\down-arrow.png" />
     <Content Include="Content\Images\issues.png" />
+    <Content Include="Content\Images\manager.jpg" />
     <Content Include="Content\Images\map.jpg" />
     <Content Include="Content\Images\marker.png" />
     <Content Include="Content\Images\romania.jpg" />
     <Content Include="Content\Images\up-arrow.png" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\modal.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\topnav.css" />
     <Content Include="Content\util.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -236,6 +244,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\easy-loading.js" />
     <Content Include="Scripts\easy-loading.min.js" />
+    <Content Include="Scripts\home.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -283,6 +292,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\_BinsList.cshtml" />
+    <Content Include="Views\Home\_AddManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

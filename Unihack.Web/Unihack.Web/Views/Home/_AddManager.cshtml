@@ -1,0 +1,71 @@
+﻿@Styles.Render("~/Content/add-manager")
+<div class="modal right fade" id="add-manager" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" style="overflow: hidden; margin-top:49px;border-radius:7px">
+    <div class="modal-dialog add-manager-modal" role="document" style=" width:100%">
+        <div class="modal-content" style="height: -webkit-fill-available;    overflow: hidden;">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2" style="margin-left: 45px;">Add Manager</h4>
+            </div>
+
+            <div class="modal-body" style="padding:0px">
+                <div class="box" style="padding-top:0px">
+                    <div class="left-div" style="overflow:hidden;padding: 0px;">
+                        <div class="limiter">
+                            <div class="container-login100">
+                                <div class="wrap-login100" style="width:max-content !important;flex-direction: initial !important">
+                                    <form class="login100-form validate-form" style="padding-top:0px !important" method="POST">
+
+                                        <div class="wrap-input100 validate-input add-input">
+                                            <input class="input100" type="text" name="firstName" id="firstName">
+                                            <span class="focus-input100"></span>
+                                            <span class="label-input100">First Name</span>
+                                        </div>
+
+                                        <div class="wrap-input100 validate-input add-input">
+                                            <input class="input100" type="text" name="lastName" id="lastName">
+                                            <span class="focus-input100"></span>
+                                            <span class="label-input100">Last Name</span>
+                                        </div>
+
+                                        <div class="wrap-input100 validate-input add-input">
+                                            <input class="input100" type="text" name="email" id="email">
+                                            <span class="focus-input100"></span>
+                                            <span class="label-input100">Email</span>
+                                        </div>
+
+                                        <div class="wrap-input100 validate-input add-input">
+                                            <input class="input100" type="password" name="password" id="password">
+                                            <span class="focus-input100"></span>
+                                            <span class="label-input100">Password</span>
+                                        </div>
+
+                                        <div class="wrap-input100 validate-input add-input">
+                                            <input class="input100" type="password" name="password2" id="password2">
+                                            <span class="focus-input100"></span>
+                                            <span class="label-input100">Confirm password</span>
+                                        </div>
+
+                                        <div class="wrap-input100 validate-input add-input">
+                                            <input class="input100" type="text" name="zone" id="zone">
+                                            <span class="focus-input100"></span>
+                                            <span class="label-input100">Zone</span>
+                                        </div>
+
+                                        <div class="container-login100-form-btn">
+                                            <input type="button" class="login100-form-btn" value="Add" onclick="addManager()">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                           </div>
+                        </div>
+                        <div class="right-div">
+                            <img src="~/Content/Images/manager.jpg">
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -38,6 +38,9 @@ namespace Unihack.Web
 
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                         "~/Scripts/toastr.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/home").Include(
+                        "~/Scripts/home.js"));
             #endregion
 
             #region styles
@@ -59,6 +62,18 @@ namespace Unihack.Web
 
             bundles.Add(new StyleBundle("~/Content/toastr").Include(
                        "~/Content/toastr.css"));
+
+            bundles.Add(new StyleBundle("~/Content/topnav").Include(
+                       "~/Content/topnav.css"));
+
+            bundles.Add(new StyleBundle("~/Content/home").Include(
+                       "~/Content/home.css"));
+
+            bundles.Add(new StyleBundle("~/Content/modal").Include(
+                       "~/Content/modal.css"));
+
+            bundles.Add(new StyleBundle("~/Content/add-manager").Include(
+                       "~/Content/add-manager.css"));
             #endregion
         }
     }

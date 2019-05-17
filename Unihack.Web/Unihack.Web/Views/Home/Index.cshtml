@@ -1,31 +1,82 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@Styles.Render("~/Content/topnav")
+@Styles.Render("~/Content/home")
+@Styles.Render("~/Content/modal")
+@Styles.Render("~/Content/login")
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="topnav" style="height:48px">
+    <img src="~/Content/Images/marker.png" class="marker-shape">
+    <a class="active">Home</a>
+    <a onclick="addManagerModal()" style="width:125px">Add Manager</a>
+    <a href="~/Manage/GetPendingUsers" style="width:60px">Item2</a>
+    <a onclick="logout()" style="float:right">Logout</a>
+
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<div class="box">
+    <div class="left-div" id="bins">
+        @Html.Partial("_BinsList", new List<Unihack.Web.Models.BinViewModel>())
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+
+    @*<div class="right-div" id="map"></div>
+        <script>
+            var map;
+            function initMap() {
+                debugger;
+                //EasyLoading.show();
+                var uluru = { lat: 45.746746, lng: 21.237650 };
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {
+                        lat: 45.746746, lng: 21.237650
+                    },
+                    zoom: 15
+                });
+
+                //AjaxHelper.getWithoutData('Bins/GetBins',
+                //    function success(data) {
+                //        debugger
+                //        if (data) {
+                //            var array = JSON.parse(data)
+                //            array.map((item) => {
+                //                new google.maps.Marker({ position: { lat: item.Latitude, lng: item.Longitude }, map: map });
+                //            })
+                //        }
+                //    },
+                //    function error(data) {
+
+                //    }
+                //)
+                var marker = new google.maps.Marker({ position: uluru, map: map });
+
+                //AjaxHelper.getViewWithoutData("/Issues/GetIssues",
+                //    function (result) {
+                //        $("#partial-view").html(result);
+                //    },
+                //    function (err) {
+
+                //    }
+                //)
+                //EasyLoading.hide();
+            }
+        </script>*@
 </div>
+<div id="add-manager-container">
+    @Html.Partial("_AddManager")
+</div>
+@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVJJvAhR9xX9ZGkgTDP5Ix0UDY8_Ox_pg&callback=initMap"
+    async defer></script>*@
+<script>
+    $(document).ready(function () {
+        debugger
+        AjaxHelper.getViewWithoutData("Home/GetBins",
+            function (result) {
+                debugger
+                $("#bins").html(result);
+            },
+            function (err) {
+
+            }
+        )
+    });
+</script>
+@Scripts.Render("~/bundles/home")

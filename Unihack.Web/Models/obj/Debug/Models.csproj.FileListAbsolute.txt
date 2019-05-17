@@ -5,3 +5,10 @@ C:\Users\Marcela\source\repos\Unihack.Web\Models\obj\Debug\Models.csprojAssembly
 C:\Users\Marcela\source\repos\Unihack.Web\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
 C:\Users\Marcela\source\repos\Unihack.Web\Models\obj\Debug\Models.exe
 C:\Users\Marcela\source\repos\Unihack.Web\Models\obj\Debug\Models.pdb
+C:\Users\Carla\Desktop\Unihack2019\Unihack.Web\Models\bin\Debug\Models.exe.config
+C:\Users\Carla\Desktop\Unihack2019\Unihack.Web\Models\bin\Debug\Models.exe
+C:\Users\Carla\Desktop\Unihack2019\Unihack.Web\Models\bin\Debug\Models.pdb
+C:\Users\Carla\Desktop\Unihack2019\Unihack.Web\Models\obj\Debug\Models.csprojAssemblyReference.cache
+C:\Users\Carla\Desktop\Unihack2019\Unihack.Web\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+C:\Users\Carla\Desktop\Unihack2019\Unihack.Web\Models\obj\Debug\Models.exe
+C:\Users\Carla\Desktop\Unihack2019\Unihack.Web\Models\obj\Debug\Models.pdb
