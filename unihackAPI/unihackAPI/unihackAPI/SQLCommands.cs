@@ -24,9 +24,10 @@ namespace ResoApi
         {
             SqlCommand cmd = new SqlCommand();
 
-            string str = @"select B.Id, B.Capacity, B.Latitude, B.Longitude, B.Name, B.Type, B.Zone, MA.ManagerId, U.Name as ManagerName from [dbo].[Bins] B
+            string str = @"select B.Id, B.Capacity, B.Latitude, B.Longitude, B.Name, B.Type, B.Zone, Z.Name as ZoneName, MA.ManagerId, U.Name as ManagerName from [dbo].[Bins] B
                             inner join [dbo].[ManagerArea] MA on B.Zone = MA.Zone
-                            inner join [dbo].[AspNetUsers] U on MA.ManagerId = U.Id";
+                            inner join [dbo].[AspNetUsers] U on MA.ManagerId = U.Id
+							inner join [dbo].[Zone] Z on B.Zone= Z.ZoneId";
             cmd.CommandText = str;
 
             return cmd;
@@ -46,17 +47,48 @@ namespace ResoApi
         {
             SqlCommand cmd = new SqlCommand();
 
-            string str = @"select bins.Id, bins.Name, bins.Type, bins.Latitude, bins.Longitude, bins.Capacity, zone.Name as ZoneName, zone.ZoneId as Zone
-                from [dbo].[Zone] as zone
-                inner join [dbo].[Bins] as bins
-                on ZoneId = Zone
-                where Zone=@mId;";
+            string str = @"select B.Id, B.Capacity, B.Latitude, B.Longitude, B.Name, B.Type, B.Zone, Z.Name as ZoneName, MA.ManagerId, U.Name as ManagerName from [dbo].[Bins] B
+                            inner join [dbo].[ManagerArea] MA on B.Zone = MA.Zone
+                            inner join [dbo].[AspNetUsers] U on MA.ManagerId = U.Id
+							inner join [dbo].[Zone] Z on B.Zone= Z.ZoneId
+                            where B.Zone=@mId;";
             cmd.CommandText = str;
             cmd.Parameters.Add("@mId", SqlDbType.Int).Value = Id;
 
             return cmd;
-
         }
+        public static SqlCommand GetBinsByManager(string Id)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+            string str = @"select bins.Id, bins.Name, bins.Type, bins.Latitude, bins.Longitude, bins.Capacity, manager.ManagerId, users.Name as ManagerName, zone.ZoneId, zone.Name as ZoneName
+                            from [dbo].[ManagerArea] as manager
+                            inner join [dbo].[Bins] as bins
+                            on manager.Zone = bins.Zone
+
+                            inner join [dbo].[AspNetUsers] as users
+                            on manager.ManagerId = users.Id
+
+                            inner join [dbo].[Zone] as zone
+                            on manager.Zone = zone.ZoneId
+                            where ManagerId=@mId;";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@mId", SqlDbType.NVarChar).Value = Id;
+
+            return cmd;
+        }
+
+        public static SqlCommand UpdateBin(Guid Id, float Capacity)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string str = @"update [dbo].[Bins] set Capacity=@mCapacity where Id=@mId";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@mId", SqlDbType.UniqueIdentifier).Value = Id;
+            cmd.Parameters.Add("@mCapacity", SqlDbType.Float).Value = Capacity;
+
+            return cmd;
+        }
+
         public static SqlCommand AddBin(BinModel model)
         {
             SqlCommand cmd = new SqlCommand();

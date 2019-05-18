@@ -75,6 +75,41 @@ namespace unihackAPI.Controllers
             else
                 return Ok(bin);
         }
+        [Route("GetBinsByManager")]
+        public async Task<IHttpActionResult> GetBinsByManager(string Id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            DataTable dt = Utils.ExecuteTable(SQLCommands.GetBinsByManager(Id));
+
+            List<BinModel> bin = Utils.DataTableToList<BinModel>(dt);
+            foreach (BinModel b in bin)
+            {
+                DataTable dtc = Utils.ExecuteTable(SQLCommands.GetCollectorsByBin(b.Id));
+                b.Collectors = Utils.DataTableToList<CollectorModel>(dtc);
+            }
+
+            if (dt.Rows.Count == 0)
+                return NotFound();
+            else
+                return Ok(bin);
+        }
+        [Route("UpdateBin")]
+        public async Task<IHttpActionResult> UpdateBin(Guid Id, float Capacity)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            
+            Utils.ExecuteNonQuery(SQLCommands.UpdateBin(Id, Capacity));
+
+            return Ok();
+        }
         [Route("AddBin")]
         public async Task<IHttpActionResult> AddBin(BinModel model)
         {
