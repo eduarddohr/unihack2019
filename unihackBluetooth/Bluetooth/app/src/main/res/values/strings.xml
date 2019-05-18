@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Bin Indicator</string>
+    <string name="title_activity_splash">BIndicator</string>
+</resources>
