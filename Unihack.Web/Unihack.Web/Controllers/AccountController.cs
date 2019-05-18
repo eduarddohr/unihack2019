@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -12,6 +13,15 @@ using Unihack.Web.Models;
 
 namespace Unihack.Web.Controllers
 {
+    public class User
+    {
+        public string Id { get; set; }
+
+        public string FullName { get; set; }
+
+        public string Area { get; set; }
+    }
+
     [Authorize]
     public class AccountController : Controller
     {
@@ -132,7 +142,36 @@ namespace Unihack.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            var managerList = new List<User>()
+            {
+                new User()
+                {
+                    Id="adcd7440-6bf9-4015-95c7-66419efc7d82",
+                    FullName="Manager 1",
+                    Area = "Name Area" 
+                },
+                new User()
+                {
+                    Id="adcd7440-6bf9-4015-95c7-66419efc7d82",
+                    FullName="Manager 2",
+                    Area="Name Area 2"
+                },
+                new User()
+                {
+                    Id="0bd4f90d-53ec-4634-a2ca-b075547f684c",
+                    FullName="Manager 3",
+                    Area="Name Area 3"
+                }
+            };
+            ViewBag.Managers = managerList;
             return View();
+        }
+
+        class AspNetUser
+        {
+            public string Id { get; set; }
+
+            public string Email { get; set; }
         }
 
         //
@@ -143,18 +182,15 @@ namespace Unihack.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name, Status = -1 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    var createdUser = Utils.ExecuteTable(SQLCommands.GetUserEmail(model.Email));
+                    var list = Utils.DataTableToList<AspNetUser>(createdUser);
+                    Utils.ExecuteNonQuery(SQLCommands.AddCollectorManagerAssociation(list.ElementAt(0).Id, model.ManagerId));
+                  
                     return Json(1);
                 }
                 AddErrors(result);
