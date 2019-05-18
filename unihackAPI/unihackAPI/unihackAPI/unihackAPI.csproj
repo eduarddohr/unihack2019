@@ -214,6 +214,7 @@
     <Compile Include="AzureHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BinController.cs" />
+    <Compile Include="Controllers\CollectorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
