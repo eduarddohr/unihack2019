@@ -1,0 +1,58 @@
+﻿@model List<Unihack.Web.Models.BinViewModel>
+
+@foreach (var bin in Model)
+{
+    <div class="bin-container">
+        <div>
+            <div class="image-div">
+                <img src="@bin.Picture" class="bin-image" />
+            </div>
+            <div class="bin-name">
+                @bin.Name     (@bin.Capacity %)
+            </div>
+        </div>
+        <div class="bin-capacity">
+            <meter style="width:60%" min="0" low="34" high="60" max="100" value='@bin.Capacity' col>
+            </meter>
+        </div>
+        <div class="bin-handler">
+            @bin.Manager
+        </div>
+    </div>
+
+    <div class="bin-container">
+        <div>
+            <div class="image-div">
+                <img src="@bin.Picture" class="bin-image" />
+            </div>
+            <div class="bin-name">
+                @bin.Name     (@bin.Capacity %)
+            </div>
+        </div>
+        <div class="bin-capacity">
+            <meter style="width:60%" min="0" low="34" high="60" max="100" value='@bin.Capacity' col>
+            </meter>
+        </div>
+        <div class="bin-handler">
+            @bin.Manager
+        </div>
+    </div>
+
+    <div class="bin-container">
+        <div>
+            <div class="image-div">
+                <img src="@bin.Picture" class="bin-image" />
+            </div>
+            <div class="bin-name">
+                @bin.Name     (@bin.Capacity %)
+            </div>
+        </div>
+        <div class="bin-capacity">
+            <meter style="width:60%" min="0" low="34" high="60" max="100" value='@bin.Capacity' col>
+            </meter>
+        </div>
+        <div class="bin-handler">
+            @bin.Manager
+        </div>
+    </div>
+}
