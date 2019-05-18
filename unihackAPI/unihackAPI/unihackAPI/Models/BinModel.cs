@@ -21,6 +21,7 @@ namespace unihackAPI.Models
         public float Capacity { get; set; }
         [Required]
         public int Zone { get; set; }
+        public string ZoneName { get; set; }
         public List<CollectorModel> Collectors { get; set; }
         public string ManagerId { get; set; }
         public string ManagerName { get; set; }

@@ -11,8 +11,6 @@ using unihackAPI.Models;
 
 namespace unihackAPI.Controllers
 {
-
-    [Authorize]
     [RoutePrefix("api/Bins")]
     public class BinController : ApiController
     {
@@ -45,6 +43,28 @@ namespace unihackAPI.Controllers
 
             List<BinModel> bin = Utils.DataTableToList<BinModel>(dt);
             foreach(BinModel b in bin)
+            {
+                DataTable dtc = Utils.ExecuteTable(SQLCommands.GetCollectorsByBin(b.Id));
+                b.Collectors = Utils.DataTableToList<CollectorModel>(dtc);
+            }
+
+            if (dt.Rows.Count == 0)
+                return NotFound();
+            else
+                return Ok(bin);
+        }
+        [Route("GetBinsByZone")]
+        public async Task<IHttpActionResult> GetBinsByZone(int Id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            DataTable dt = Utils.ExecuteTable(SQLCommands.GetBinsByZone(Id));
+
+            List<BinModel> bin = Utils.DataTableToList<BinModel>(dt);
+            foreach (BinModel b in bin)
             {
                 DataTable dtc = Utils.ExecuteTable(SQLCommands.GetCollectorsByBin(b.Id));
                 b.Collectors = Utils.DataTableToList<CollectorModel>(dtc);

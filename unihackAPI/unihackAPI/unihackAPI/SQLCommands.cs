@@ -41,6 +41,22 @@ namespace ResoApi
 
             return cmd;
         }
+
+        public static SqlCommand GetBinsByZone(int Id)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+            string str = @"select bins.Id, bins.Name, bins.Type, bins.Latitude, bins.Longitude, bins.Capacity, zone.Name as ZoneName, zone.ZoneId as Zone
+                from [dbo].[Zone] as zone
+                inner join [dbo].[Bins] as bins
+                on ZoneId = Zone
+                where Zone=@mId;";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@mId", SqlDbType.Int).Value = Id;
+
+            return cmd;
+
+        }
         public static SqlCommand AddBin(BinModel model)
         {
             SqlCommand cmd = new SqlCommand();
@@ -77,7 +93,31 @@ namespace ResoApi
 
             return cmd;
         }
+        
+        public static SqlCommand GetCollectorsByManager(string Id)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string str = @"select MCA.ColectorId as Id, U.Name as Name from [dbo].[ManagerCollectorAssociation] MCA
+                inner join [dbo].[AspNetUsers] U on MCA.ColectorId = U.Id
+                where  ManagerId=@mId";
+            cmd.Parameters.Add("@mId", SqlDbType.NVarChar).Value = Id;
+            cmd.CommandText = str;
+
+            return cmd;
+        }
+
         #endregion Bin
+
+        public static SqlCommand GetManagers()
+        {
+            SqlCommand cmd = new SqlCommand();
+            string str = @"select U.Id, U.Name, U.Email, Ma.Zone as ZoneId, Z.Name as ZoneName from [dbo].[AspNetUsers] U
+                inner join [dbo].[ManagerArea] MA on U.Id = MA.ManagerId
+                inner join [dbo].[Zone] Z on MA.Zone = Z.ZoneId";
+            cmd.CommandText = str;
+
+            return cmd;
+        }
 
     }
 }
