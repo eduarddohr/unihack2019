@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Unihack.Web.Models;
 
 namespace Unihack.Web.Controllers
@@ -12,6 +14,29 @@ namespace Unihack.Web.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult AddManager()
+        {
+            return View();
+        }
+
+        public async Task<ActionResult> Managers()
+        {
+            List<ManagerModel> list = new List<ManagerModel>();
+            
+            try
+            {
+                var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Manager/GetManagers");
+                list = new JavaScriptSerializer().Deserialize<List<ManagerModel>>(response);
+
+            }
+            catch (Exception ex)
+            {
+                var x = 1;
+            }
+
+            return View(list);
         }
 
         public ActionResult About()
