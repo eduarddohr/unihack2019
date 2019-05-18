@@ -98,6 +98,7 @@ namespace unihackAPI.Controllers
             else
                 return Ok(bin);
         }
+        [HttpGet]
         [Route("UpdateBin")]
         public async Task<IHttpActionResult> UpdateBin(Guid Id, float Capacity)
         {
