@@ -6,15 +6,15 @@ public class AddBinModel {
 
     public UUID Id;
 
-    public String Name;
+    public String Name; //asta
 
-    public int Type;
+    public int Type; //asta
 
-    public int Latitude;
+    public float Latitude; //asta
 
-    public int Longitude;
+    public float Longitude; //asta
 
-    public float Capacity;
+    public float Capacity; //trimit 0
 
     public int Zone;
 }
