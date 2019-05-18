@@ -1,6 +1,5 @@
 ﻿@Styles.Render("~/Content/topnav")
 @Styles.Render("~/Content/home")
-@Styles.Render("~/Content/modal")
 @Styles.Render("~/Content/login")
 
 <style>
@@ -17,8 +16,8 @@
 <div class="topnav" style="height:48px">
     <img src="~/Content/Images/marker.png" class="marker-shape">
     <a class="active">Home</a>
-    <a onclick="addManagerModal()" style="width:125px">Add Manager</a>
-    <a href="~/Manage/GetPendingUsers" style="width:60px">Item2</a>
+    <a href="AddManager" style="width:125px">Add Manager</a>
+    <a href="Managers" style="width: 80px">Managers</a>
     <a onclick="logout()" style="float:right">Logout</a>
 
 </div>

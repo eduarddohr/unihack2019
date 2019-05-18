@@ -1,0 +1,76 @@
+﻿@model List<Unihack.Web.Models.ManagerModel>
+@{
+    ViewBag.Title = "Managers";
+}
+@Styles.Render("~/Content/table-main")
+@Styles.Render("~/Content/perfect-scrollbar")
+@Styles.Render("~/Content/topnav")
+<style>
+    a{
+        font-family:"Montserrat-Regular"
+    }
+
+
+    .body-container {
+        height: -webkit-fill-available;
+        background-image: url(../Content/Images/manager.jpg);
+    }
+
+</style>
+<div class="topnav" style="height:48px">
+    <img src="~/Content/Images/marker.png" class="marker-shape">
+    <a href="Index">Home</a>
+    <a href="AddManager" style="width:125px">Add Manager</a>
+    <a class="active" style="width: 80px;height: 48px;">Managers</a>
+    <a onclick="logout()" style="float:right">Logout</a>
+</div>
+<div class="body-container">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                    <div class="table100-head">
+                        <table style="border-collapse:collapse;text-align:left">
+                            <thead>
+                                <tr class="row100 head">
+                                    <th class="cell100 column1"></th>
+                                    <th class="cell100 column2">Name</th>
+                                    <th class="cell100 column2">Email</th>
+                                    <th class="cell100 column2">Zone</th>
+                                    <th class="cell100 column3">Activate</th>
+                                    <th class="cell100 column3">Reject</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="table100-body js-pscroll">
+                        <table style="border-collapse:collapse;text-align:left">
+                            <tbody>
+                                @foreach (var manager in Model)
+                                {
+                                    <tr class="row100 body">
+                                        <td class="cell100 column1"><img src="~/Content/Images/pending.png" style="width:35px"></td>
+                                        <td class="cell100 column2">@manager.Name</td>
+                                        <td class="cell100 column2">@manager.Email</td>
+                                        <td class="cell100 column2">@manager.ZoneName</td>
+                                        <td class="cell100 column3"><a class="action-button">ACTIVATE</a></td>
+                                        <td class="cell100 column3"><a class="action-button">REJECT</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/perfect-scrollbar")
+    <script>
+        $('.js-pscroll').each(function () {
+            var ps = new PerfectScrollbar(this);
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+    </script>
