@@ -27,7 +27,7 @@ namespace ResoApi
             string str = @"select B.Id, B.Capacity, B.Latitude, B.Longitude, B.Name, B.Type, B.Zone, Z.Name as ZoneName, MA.ManagerId, U.Name as ManagerName from [dbo].[Bins] B
                             inner join [dbo].[ManagerArea] MA on B.Zone = MA.Zone
                             inner join [dbo].[AspNetUsers] U on MA.ManagerId = U.Id
-							inner join [dbo].[Zone] Z on B.Zone= Z.ZoneId";
+							inner join [dbo].[Zone] Z on B.Zone= Z.ZoneId order by B.Capacity desc";
             cmd.CommandText = str;
 
             return cmd;
@@ -146,6 +146,17 @@ namespace ResoApi
             string str = @"select U.Id, U.Name, U.Email, Ma.Zone as ZoneId, Z.Name as ZoneName from [dbo].[AspNetUsers] U
                 inner join [dbo].[ManagerArea] MA on U.Id = MA.ManagerId
                 inner join [dbo].[Zone] Z on MA.Zone = Z.ZoneId";
+            cmd.CommandText = str;
+
+            return cmd;
+        }
+        public static SqlCommand GetZoneByCollector(string Id)
+        {
+            SqlCommand cmd = new SqlCommand();
+            string str = @"select MA.Zone from [dbo].[ManagerCollectorAssociation] MCA
+                        inner join [dbo].[ManagerArea] MA on  MCA.ManagerId = MA.ManagerId 
+                        where ColectorId = @mId";
+            cmd.Parameters.Add("@mId", SqlDbType.NVarChar).Value = Id;
             cmd.CommandText = str;
 
             return cmd;

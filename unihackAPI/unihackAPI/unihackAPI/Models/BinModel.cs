@@ -19,7 +19,6 @@ namespace unihackAPI.Models
         public float Longitude { get; set; }
         [Required]
         public float Capacity { get; set; }
-        [Required]
         public int Zone { get; set; }
         public string ZoneName { get; set; }
         public List<CollectorModel> Collectors { get; set; }

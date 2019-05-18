@@ -1,4 +1,5 @@
-﻿using ResoApi;
+﻿using Microsoft.AspNet.Identity;
+using ResoApi;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -117,10 +118,15 @@ namespace unihackAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            model.Id = Guid.NewGuid();
-            Utils.ExecuteNonQuery(SQLCommands.AddBin(model));
-
+            try{
+                model.Zone = Int32.Parse(Utils.ExecuteScalar(SQLCommands.GetZoneByCollector(User.Identity.GetUserId())));
+                model.Id = Guid.NewGuid();
+                Utils.ExecuteNonQuery(SQLCommands.AddBin(model));
+            }
+            catch(Exception e)
+            {
+                return InternalServerError();
+            }
             return Ok();
         }
 
