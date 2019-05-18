@@ -41,7 +41,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "bluetooth";
     Button btnOn, btnOff;
-    TextView txtArduino;
+    TextView txtArduino, txtArduino2, txtArduino3;
     Handler h;
     final int RECIEVE_MESSAGE = 1;  // status pt.
     //private int flag=0;
@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.layout); //aleg layout
         btnOn = (Button)findViewById(R.id.btnOn);   // buton led ON
         btnOff = (Button) findViewById(R.id.btnOff);  // buton led OFF
-        txtArduino = (TextView) findViewById(R.id.txtArduino);  // casuta unde primim datele
+        txtArduino = (TextView) findViewById(R.id.txtArduino);
+        txtArduino2 = (TextView) findViewById(R.id.txtArduino2);
+        txtArduino3 = (TextView) findViewById(R.id.txtArduino3);
 
         //updateBin(33.4f);
 
@@ -95,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
                                     updateBin(Capacity);
                                     txtArduino.setText(String.valueOf(Capacity));
+                                    txtArduino2.setText(String.valueOf(distance));
+                                    txtArduino3.setText(String.valueOf(weight));
+
                                     btnOff.setEnabled(true);                                 //las butoanele sa se poata apasa
                                     btnOn.setEnabled(true);
                                 }

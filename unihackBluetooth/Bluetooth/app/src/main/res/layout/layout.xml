@@ -36,4 +36,24 @@
         android:maxLines="10"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/txtArduino2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:maxLines="10"
+        android:paddingTop="20dp"
+        android:text="INCOMING DATA"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtArduino3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:maxLines="10"
+        android:paddingTop="20dp"
+        android:text="INCOMING DATA"
+        android:textSize="20sp" />
+
 </LinearLayout>
