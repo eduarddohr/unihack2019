@@ -1,12 +1,19 @@
-﻿@Styles.Render("~/Content/util")
+﻿@{
+    ViewBag.Title = "Managers";
+    if (Session["userId"] == null || Session["userRole"].ToString()!="TOPADMIN")
+    {
+        Response.Redirect("~/Account/Login");
+    }
+}
+@Styles.Render("~/Content/util")
 @Styles.Render("~/Content/login")
 @Scripts.Render("~/bundles/add-manager")
 @Styles.Render("~/Content/font-awesome")
 @Styles.Render("~/Content/easy-loading")
 @Styles.Render("~/Content/topnav")
 <style>
-    body{
-        overflow:hidden;
+    body {
+        overflow: hidden;
     }
 </style>
 <div class="topnav" style="height:48px">
@@ -18,7 +25,7 @@
 
 </div>
 <div class="limiter" style="margin-top:48px">
-    <div class="container-login100" style="background-image: url('../Content/Images/manager.jpg');">
+    <div class="container-login100 add-managers" style="background-image: url('../Content/Images/manager.jpg');">
         <div class="wrap-login100 p-b-30">
             <form class="login100-form validate-form" method="post">
                 <div class="login100-form-avatar">

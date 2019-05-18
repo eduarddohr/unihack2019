@@ -66,7 +66,29 @@ namespace Unihack.Web
             return cmd;
         }
 
-       
-       
+        public static SqlCommand GetUserByEmail(string email)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+
+            // string str = "select users.Id, users.Name, roles.Name as Role, manager.Zone from[dbo].[AspNetUserRoles] as urole inner join [dbo].[AspNetUsers] as users on urole.UserId = users.Id inner join [dbo].[AspNetRoles] as roles on urole.RoleId = roles.Id inner join[dbo].[ManagerArea] as manager on urole.UserId = manager.ManagerId where users.Email = @mEmail";
+            //string str = "select Id from [dbo].[AspNetUsers] where Email=@mEmail";
+            string str = "select users.Id, users.Name, roles.Name as Role from [dbo].[AspNetUserRoles] as urole inner join [dbo].[AspNetUsers] as users on urole.UserId = users.Id inner join[dbo].[AspNetRoles] as roles on urole.RoleId = roles.Id where users.Email = @mEmail";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@mEmail", SqlDbType.NVarChar).Value = email;
+
+            return cmd;
+        }
+
+        public static SqlCommand GetZoneByManager(string managerId)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+            string str = "select Zone as ZoneId from [dbo].[ManagerArea] where ManagerId=@mManagerId";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@mManagerId", SqlDbType.NVarChar).Value = managerId;
+            return cmd;
+        }
+
     }
 }

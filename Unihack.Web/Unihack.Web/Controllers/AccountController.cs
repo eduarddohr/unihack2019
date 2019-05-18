@@ -71,6 +71,13 @@ namespace Unihack.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult Logout()
+        {
+            Session.Abandon();
+            return Json("LoggedOut");
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -88,7 +95,22 @@ namespace Unihack.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return Json(1);
+                    {
+                        Session["userEmail"] = model.Email;
+                        var loggedUser = Utils.ExecuteTable(SQLCommands.GetUserByEmail(model.Email));
+                        var list = Utils.DataTableToList<UserModel>(loggedUser);
+                        Session["userId"] = list.ElementAt(0).Id;
+                        Session["userRole"] = list.ElementAt(0).Role;
+                        if (Session["userRole"].ToString() == "MANAGER")
+                        {
+                            var  zone= Utils.ExecuteTable(SQLCommands.GetZoneByManager(list.ElementAt(0).Id));
+
+                            var zoneList = Utils.DataTableToList<ZoneModel>(zone).ElementAt(0).ZoneId;
+
+                            Session["userZone"] = zoneList;
+                        }
+                        return Json(1);
+                    }
                 default:
                     return Json(-1);
             }

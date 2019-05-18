@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace unihackAPI.Models
+namespace Unihack.Web.Models
 {
-    public class CollectorModel
+    public class UserModel
     {
         public string Id { get; set; }
 
         public string Name { get; set; }
+
+        public string Role { get; set; }
+
     }
 }

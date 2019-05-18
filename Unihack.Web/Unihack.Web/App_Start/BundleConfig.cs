@@ -47,6 +47,9 @@ namespace Unihack.Web
 
             bundles.Add(new ScriptBundle("~/bundles/perfect-scrollbar.min.js").Include(
                        "~/Scripts/perfect-scrollbar.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/logout").Include(
+                    "~/Scripts/logout.js"));
             #endregion
 
             #region styles

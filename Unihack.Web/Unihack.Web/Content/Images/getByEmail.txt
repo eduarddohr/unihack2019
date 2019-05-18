@@ -1,0 +1,8 @@
+select users.Id, users.Name, roles.Name as Role
+from [dbo].[AspNetUserRoles] as urole
+inner join [dbo].[AspNetUsers] as users
+on urole.UserId = users.Id
+
+inner join [dbo].[AspNetRoles] as roles
+on urole.RoleId = roles.Id
+where users.Email = 'topadmin@mail.com'
