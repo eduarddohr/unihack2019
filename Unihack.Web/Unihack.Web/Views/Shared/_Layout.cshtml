@@ -10,6 +10,7 @@
     @Scripts.Render("~/bundles/easy-loading")
     @Styles.Render("~/Content/toastr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/ajaxHelper")
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <style>
         body {
@@ -23,7 +24,6 @@
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/ajaxHelper")
     @Scripts.Render("~/bundles/toastr")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

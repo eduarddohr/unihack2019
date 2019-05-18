@@ -12,6 +12,24 @@ var AjaxHelper = function () {
 
 	function get(url, postData, successCallback, failureCallBack, context, asyncCall) {
 		$.ajax({
+			url: url,
+			dataType: "json",
+			type: "GET",
+			contentType: 'application/json; charset=utf-8',
+			async: asyncCall === undefined ? true : asyncCall,
+			cache: false,
+			data: postData,
+			success: successCallback,
+			error: failureCallBack,
+			context: context,
+			xhrFields: {
+				withCredentials: true
+			},
+		});
+	}
+
+	function getWithBase(url, postData, successCallback, failureCallBack, context, asyncCall) {
+		$.ajax({
 			url: base_url + url,
 			dataType: "json",
 			type: "GET",
@@ -112,6 +130,7 @@ var AjaxHelper = function () {
 		post: post,
 		postForView: postForView,
 		postWithoutData: postWithoutData,
-		postFile: postFile
+		postFile: postFile,
+		getWithBase: getWithBase
 	};
 }();

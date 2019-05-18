@@ -210,6 +210,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BinModel.cs" />
+    <Compile Include="Models\CollectorModel.cs" />
     <Compile Include="Models\ManagerModel.cs" />
     <Compile Include="Models\ZoneModel.cs" />
     <Compile Include="Models\ManagerViewModel.cs" />
@@ -233,12 +235,17 @@
     <Content Include="Content\Images\bin.jpg" />
     <Content Include="Content\Images\comment.png" />
     <Content Include="Content\Images\down-arrow.png" />
+    <Content Include="Content\Images\garbage-16.png" />
     <Content Include="Content\Images\issues.png" />
     <Content Include="Content\Images\manager.jpg" />
+    <Content Include="Content\Images\map.jpeg" />
     <Content Include="Content\Images\map.jpg" />
     <Content Include="Content\Images\marker.png" />
     <Content Include="Content\Images\pending.png" />
     <Content Include="Content\Images\romania.jpg" />
+    <Content Include="Content\Images\trash-16.png" />
+    <Content Include="Content\Images\trash-24.png" />
+    <Content Include="Content\Images\trash-can-16.png" />
     <Content Include="Content\Images\up-arrow.png" />
     <Content Include="Content\login.css" />
     <Content Include="Content\perfect-scrollbar.css" />

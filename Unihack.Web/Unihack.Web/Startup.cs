@@ -8,10 +8,10 @@ namespace Unihack.Web
     public partial class Startup
     {
         public static HttpClient client;
-        public void Configuration(IAppBuilder app)
-        {
-            client = new HttpClient();
-            ConfigureAuth(app);
-        }
+            public void Configuration(IAppBuilder app)
+            {
+                client = new HttpClient();
+                ConfigureAuth(app);
+            }
     }
 }

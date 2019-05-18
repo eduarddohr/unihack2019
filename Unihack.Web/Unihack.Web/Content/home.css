@@ -58,7 +58,7 @@ div.clear {
     font-size: 12px;
 }
 meter::-webkit-meter-optimum-value {
-    background: green;
+    background: red;
 }
 
 meter::-webkit-meter-suboptimum-value {
@@ -66,7 +66,7 @@ meter::-webkit-meter-suboptimum-value {
 }
 
 meter::-webkit-meter-even-less-good-value {
-    background: red;
+    background: green;
 }
 
 ::-webkit-scrollbar {
