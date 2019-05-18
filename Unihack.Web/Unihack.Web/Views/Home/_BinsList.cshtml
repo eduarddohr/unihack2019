@@ -1,58 +1,60 @@
-﻿@model List<Unihack.Web.Models.BinViewModel>
+﻿@model List<unihackAPI.Models.BinModel>
+
+<style>
+</style>
 
 @foreach (var bin in Model)
 {
-    <div class="bin-container">
+    <div class="bin-container" href="#@bin.Id" id="@bin.Id">
         <div>
             <div class="image-div">
-                <img src="@bin.Picture" class="bin-image" />
+                @{
+                    string url = "";
+                }
+                @if (bin.Type == 1)
+                {
+                    url = "/Content/Images/trash-128.png";
+                }
+                else
+                {
+                    if (bin.Type == 2)
+                    {
+                        url = "/Content/Images/garbage-128.png";
+                    }
+                    else if (bin.Type == 3)
+                    {
+                        url = "/Content/Images/trash-can-128.png";
+                    }
+                }
+                <img src="@url" class="bin-image" onclick="center_map('@bin.Latitude','@bin.Longitude', '@bin.Id')" />
             </div>
+            @{ 
+                var floatCapacity = bin.Capacity.ToString().Replace(',','.');
+            }
             <div class="bin-name">
-                @bin.Name     (@bin.Capacity %)
+                @bin.Name     (double.Parse(@bin.Capacity) %)
             </div>
         </div>
-        <div class="bin-capacity">
-            <meter style="width:60%" min="0" low="34" high="60" max="100" value='@bin.Capacity' col>
-            </meter>
-        </div>
-        <div class="bin-handler">
-            @bin.Manager
-        </div>
-    </div>
 
-    <div class="bin-container">
-        <div>
-            <div class="image-div">
-                <img src="@bin.Picture" class="bin-image" />
-            </div>
-            <div class="bin-name">
-                @bin.Name     (@bin.Capacity %)
-            </div>
-        </div>
         <div class="bin-capacity">
-            <meter style="width:60%" min="0" low="34" high="60" max="100" value='@bin.Capacity' col>
-            </meter>
+            <meter style="width:60%" min="0" max="100" low="25" high="75" optimum="100" value="@floatCapacity"></meter>
         </div>
         <div class="bin-handler">
-            @bin.Manager
-        </div>
-    </div>
-
-    <div class="bin-container">
-        <div>
-            <div class="image-div">
-                <img src="@bin.Picture" class="bin-image" />
-            </div>
-            <div class="bin-name">
-                @bin.Name     (@bin.Capacity %)
-            </div>
-        </div>
-        <div class="bin-capacity">
-            <meter style="width:60%" min="0" low="34" high="60" max="100" value='@bin.Capacity' col>
-            </meter>
-        </div>
-        <div class="bin-handler">
-            @bin.Manager
+            @bin.ManagerName
         </div>
     </div>
 }
+
+<script>
+    function center_map(lat, long, id) {
+        map.setZoom(20);
+
+        var element = $("#" + id);
+        $(".bin-container").removeClass("active-bin");
+        element.addClass("active-bin");
+
+        var _lat = lat.replace(/,/, '.');
+        var _long = long.replace(/,/, '.');
+        map.setCenter(new google.maps.LatLng(_lat, _long));
+    }
+</script>
