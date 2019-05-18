@@ -210,6 +210,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ManagerModel.cs" />
+    <Compile Include="Models\ZoneModel.cs" />
+    <Compile Include="Models\ManagerViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\BinViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -219,7 +222,6 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\add-manager.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -235,10 +237,12 @@
     <Content Include="Content\Images\manager.jpg" />
     <Content Include="Content\Images\map.jpg" />
     <Content Include="Content\Images\marker.png" />
+    <Content Include="Content\Images\pending.png" />
     <Content Include="Content\Images\romania.jpg" />
     <Content Include="Content\Images\up-arrow.png" />
     <Content Include="Content\login.css" />
-    <Content Include="Content\modal.css" />
+    <Content Include="Content\perfect-scrollbar.css" />
+    <Content Include="Content\table-main.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\topnav.css" />
     <Content Include="Content\util.css" />
@@ -246,6 +250,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\add-manager.js" />
     <Content Include="Scripts\AjaxHelper.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -267,6 +272,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\perfect-scrollbar.min.js" />
     <Content Include="Scripts\register.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Web.config">
@@ -306,7 +312,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\_BinsList.cshtml" />
-    <Content Include="Views\Home\_AddManager.cshtml" />
+    <Content Include="Views\Home\AddManager.cshtml" />
+    <Content Include="Views\Home\Managers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

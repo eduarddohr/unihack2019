@@ -21,6 +21,29 @@ namespace Unihack.Web
             return cmd;
         }
 
+        public static SqlCommand AddZone(string zone)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+            string str = "insert into [dbo].[Zone] (Name) values (@mZone)";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@mZone", SqlDbType.NVarChar).Value = zone;
+
+            return cmd;
+        }
+
+        public static SqlCommand AddManagerZoneAssociation(string managerId, int zoneId)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+            string str = "insert into [dbo].[ManagerArea] (ManagerId, ColectorId) values (@mManagerId, @mZone)";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@mManagerId", SqlDbType.NVarChar).Value = managerId;
+            cmd.Parameters.Add("@mZone", SqlDbType.NVarChar).Value = zoneId;
+
+            return cmd;
+        }
+
         public static SqlCommand GetUserEmail(string email)
         {
             SqlCommand cmd = new SqlCommand();
@@ -31,5 +54,19 @@ namespace Unihack.Web
 
             return cmd;
         }
+
+        public static SqlCommand GetZoneName(string zoneName)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+            string str = "select * from [dbo].[Zone] where Name = @Name";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = zoneName;
+
+            return cmd;
+        }
+
+       
+       
     }
 }

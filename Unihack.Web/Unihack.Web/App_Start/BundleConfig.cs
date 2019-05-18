@@ -41,6 +41,12 @@ namespace Unihack.Web
 
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                         "~/Scripts/home.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/add-manager").Include(
+                        "~/Scripts/add-manager.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/perfect-scrollbar.min.js").Include(
+                       "~/Scripts/perfect-scrollbar.min.js"));
             #endregion
 
             #region styles
@@ -69,11 +75,12 @@ namespace Unihack.Web
             bundles.Add(new StyleBundle("~/Content/home").Include(
                        "~/Content/home.css"));
 
-            bundles.Add(new StyleBundle("~/Content/modal").Include(
-                       "~/Content/modal.css"));
+            bundles.Add(new StyleBundle("~/Content/table-main").Include(
+                       "~/Content/table-main.css"));
 
-            bundles.Add(new StyleBundle("~/Content/add-manager").Include(
-                       "~/Content/add-manager.css"));
+            bundles.Add(new StyleBundle("~/Content/perfect-scrollbar").Include(
+                       "~/Content/perfect-scrollbar.css"));
+
             #endregion
         }
     }

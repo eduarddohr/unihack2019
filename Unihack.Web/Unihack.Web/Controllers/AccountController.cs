@@ -200,6 +200,37 @@ namespace Unihack.Web.Controllers
             return Json(-1);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<JsonResult> AddManager(ManagerViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name, Status = -1 };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+
+
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var createdUser = Utils.ExecuteTable(SQLCommands.GetUserEmail(model.Email));
+                    var list = Utils.DataTableToList<AspNetUser>(createdUser);
+                    Utils.ExecuteNonQuery(SQLCommands.AddZone(model.Zone));
+                    var createdZone = Utils.ExecuteTable(SQLCommands.GetZoneName(model.Zone));
+                    var list2 = Utils.DataTableToList<ZoneModel>(createdZone);
+                    Utils.ExecuteNonQuery(SQLCommands.AddManagerZoneAssociation(list.ElementAt(0).Id, list2.ElementAt(0).ZoneId));
+
+                    return Json(1);
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return Json(-1);
+        }
+
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
