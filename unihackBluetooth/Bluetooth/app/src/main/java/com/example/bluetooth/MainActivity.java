@@ -5,28 +5,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import com.example.bluetooth.R;
-import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -36,9 +18,25 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bluetooth.R;
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Handler;
+import android.service.autofill.UserData;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "bluetooth";
@@ -47,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
     Handler h;
     final int RECIEVE_MESSAGE = 1;  // status pt.
     //private int flag=0;
-
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
+
+
+
     private StringBuilder sb = new StringBuilder();
     private ConnectedThread mConnectedThread;
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //asta asa trebuie pus UUID pt SPP
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         btnOff = (Button) findViewById(R.id.btnOff);  // buton led OFF
         txtArduino = (TextView) findViewById(R.id.txtArduino);  // casuta unde primim datele
 
-        updateBin(10.2f);
+        //updateBin(33.4f);
 
         h = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -77,22 +77,31 @@ public class MainActivity extends AppCompatActivity {
                         //int endOfLineWeight = sb.indexOf("*");
 
                         if (endOfLineDist > 0 ) {                                    // daca am ajuns la capat de mesaj
+
                             String sbprint = sb.substring(0, endOfLineDist);        // extrag string
                             sb.delete(0, sb.length());                               //sterg ce a fost in el
                                                      // scriu in casuta
+                            Log.d("mesaul:", sbprint);
+                            if(sbprint.length() > 2) {
+                                try {
+                                    String[] separated = sbprint.split(" ");
+                                    int distance = Integer.parseInt(separated[0]);
+                                    int weight = Integer.parseInt(separated[1].trim());
 
-                            String[] separated = sbprint.split(" ");
-                            int distance = Integer.parseInt(separated[0]);
-                            int weight = Integer.parseInt(separated[1].trim());
-
-                            float capacityDistance = (distance * 5);
-                            float weightDistnace = (float)(weight * 0.05);
+                                    float cD = 100 - (distance * 5);
+                                    float cW = (float) (weight * 0.05);
+                                    float Capacity = max(cD, cW);  //asta trimite Edu la baza de date
 
 
-
-                            txtArduino.setText(sbprint);
-                            btnOff.setEnabled(true);                                 //las butoanele sa se poata apasa
-                            btnOn.setEnabled(true);
+                                    updateBin(Capacity);
+                                    txtArduino.setText(String.valueOf(Capacity));
+                                    btnOff.setEnabled(true);                                 //las butoanele sa se poata apasa
+                                    btnOn.setEnabled(true);
+                                }
+                                catch (Exception e){
+                                    Log.d("eroare la parse", e.toString());
+                                }
+                            }
                         }
                         /*
                         if(endOfLineWeight > 0 ){                                       //daca am ajuns la capat de mesaj greutate
@@ -123,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
                 txtArduino.setText("");
             }
         });
+    }
+
+    private float max(float dist,float weight){
+        if(dist > weight) return dist;
+        else return weight;
     }
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {      //creez socket
         if(Build.VERSION.SDK_INT >= 10){
@@ -227,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "...Eroare la trimitere: " + e.getMessage() + "...");
             }
         }
-
     }
     private void updateBin(float capacity){
         String urlString = "http://unihackapi.azurewebsites.net/api/Bins/UpdateBin?";
@@ -235,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
         urlString += "&Capacity=";
         urlString += String.valueOf(capacity);
 
+    /*
         StringRequest stringRequest = new StringRequest(urlString, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -252,5 +266,54 @@ public class MainActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(stringRequest);
+        */
+
+        StringRequest stringRequest = new StringRequest(urlString,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+
+
+                        }catch (Exception e)
+                        {
+                            Log.d("eroare: ", e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast.makeText(MainActivity.this,error.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("Content-Type", "charset=utf-8");
+                return map;
+            }
+            @Override
+
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                try {
+                    String jsonString = new String(response.data,
+                            HttpHeaderParser.parseCharset(response.headers));
+
+                    return Response.success(jsonString,
+                            HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException e) {
+                    return Response.error(new ParseError(e));
+                }
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(stringRequest);
+
     }
 }
