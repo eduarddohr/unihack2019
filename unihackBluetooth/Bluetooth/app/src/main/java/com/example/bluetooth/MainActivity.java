@@ -74,10 +74,18 @@ public class MainActivity extends AppCompatActivity {
                             int distance = Integer.parseInt(separated[0]);
                             int weight = Integer.parseInt(separated[1].trim());
 
-                            float capacityDistance = (distance * 5);
-                            float weightDistnace = (float)(weight * 0.05);
+                            float cD = 100-(distance * 5);
+                            float cW = (float)(weight * 0.05);
+                            float Capacity=max(cD,cW);  //asta trimite Edu la baza de date
 
-                            
+                            /*
+                            if(cD-cW >70){
+                                Capacity=cW-5;
+                            }
+                            else if(cW-cD > 70){
+
+                            }
+                            */
 
                             txtArduino.setText(sbprint);
                             btnOff.setEnabled(true);                                 //las butoanele sa se poata apasa
@@ -112,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
                 txtArduino.setText("");
             }
         });
+    }
+
+    private float max(float dist,float weight){
+        if(dist > weight) return dist;
+        else return weight;
     }
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {      //creez socket
         if(Build.VERSION.SDK_INT >= 10){
