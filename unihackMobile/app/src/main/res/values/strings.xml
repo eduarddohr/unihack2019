@@ -3,6 +3,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_login">Login</string>
     <string name="top_map">Map</string>
+    <string name="add_bin">Add</string>
+    <string name="show_route">Show</string>
     <string name="list_button">List Bins</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

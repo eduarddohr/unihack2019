@@ -1,5 +1,8 @@
 package com.example.unihack;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,6 +33,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 
@@ -43,14 +48,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import com.example.unihack.DirectionFinder;
+import com.example.unihack.DirectionFinderListener;
+import com.example.unihack.Route;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,DirectionFinderListener{
 
     private GoogleMap mMap;
     private UserData userData;
     private HashMap<Marker, UUID> markersDictionary = new HashMap<>();
     private FloatingActionButton mAddIssueButton;
+    private TextView mHelloGuest;
     public List<BinGetModel> Bins= new ArrayList<>();   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     UserHandler handler = new UserHandler(this);
+
+
+    private FloatingActionButton btnFindPath; //asta am adaugat
+    private List<Marker> originMarkers = new ArrayList<>();
+    private List<Marker> destinationMarkers = new ArrayList<>();
+    private List<Polyline> polylinePaths = new ArrayList<>();
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +79,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         userData = new UserHandler(this).getUserData();
+        mHelloGuest = findViewById(R.id.textView);
+        mHelloGuest.setText("Bine ai venit "+userData.FullName+" !");
         //button listener
         mAddIssueButton = findViewById(R.id.btn_activity_issues_fab);
         mAddIssueButton.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +91,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        //asta am adaugat
+        btnFindPath = findViewById(R.id.btnFindPath);
+        btnFindPath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendRequest();
+            }
+        });
     }
-    private void goToList(){
-        Intent intent = new Intent(this, ListBinsActivity.class);
-        startActivity(intent);
+    //asta am adaugat
+    private void sendRequest() {
+
+        try {
+
+
+
+
+
+
+            new DirectionFinder(this, "Strada Bujorilor", "Strada Aida").execute();
+            
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAllBins(final String accessToken){
@@ -167,13 +206,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .title(bin.Name)
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.green));
                 }
-                else if(bin.Capacity>33 && bin.Capacity<=66)
+                else if(bin.Capacity>33 && bin.Capacity<=75)
                 {
                             marker.position(location)
                             .title(bin.Name)
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow));
                 }
-                else if(bin.Capacity>66 && bin.Capacity<=100)
+                else if(bin.Capacity>75)
                 {
                             marker.position(location)
                             .title(bin.Name)
@@ -240,6 +279,65 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         BinHelper.tempBin = null;
     }
+
+    @Override
+    public void onDirectionFinderStart() {
+
+        progressDialog = ProgressDialog.show(this, "Please wait.",
+                "Finding direction..!", true);
+
+        if (originMarkers != null) {
+            for (Marker marker : originMarkers) {
+                marker.remove();
+            }
+        }
+
+        if (destinationMarkers != null) {
+            for (Marker marker : destinationMarkers) {
+                marker.remove();
+            }
+        }
+
+        if (polylinePaths != null) {
+            for (Polyline polyline:polylinePaths ) {
+                polyline.remove();
+            }
+        }
+    }
+
+    @Override
+    public void onDirectionFinderSuccess(List<Route> routes) {
+
+        progressDialog.dismiss();
+        polylinePaths = new ArrayList<>();
+        originMarkers = new ArrayList<>();
+        destinationMarkers = new ArrayList<>();
+
+        for (Route route : routes) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
+
+            originMarkers.add(mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.red))
+                    .title(route.startAddress)
+                    .position(route.startLocation)));
+            destinationMarkers.add(mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.red))
+                    .title(route.endAddress)
+                    .position(route.endLocation)));
+
+            PolylineOptions polylineOptions = new PolylineOptions().
+                    geodesic(true).
+                    color(Color.BLUE).
+                    width(10);
+
+            for (int i = 0; i < route.points.size(); i++)
+                polylineOptions.add(route.points.get(i));
+
+            polylinePaths.add(mMap.addPolyline(polylineOptions));
+        }
+    }
+
+
     /*
     private void showIssueScreen(UUID binId) {
         Intent intent = new Intent(MapsActivity.this, BinActivity.class);
