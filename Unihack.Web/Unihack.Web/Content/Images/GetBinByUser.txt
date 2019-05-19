@@ -1,0 +1,6 @@
+select bins.Id, bins.Name, bins.Type, bins.Latitude, bins.Longitude, bins.Capacity, asos.UserId
+from [dbo].[BinUserAssociation] as asos
+inner join [dbo].[Bins] as bins
+on asos.BinId = bins.Id
+
+where asos.UserId='4dd3070d-c745-44ef-8feb-f006614ad853';

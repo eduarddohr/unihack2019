@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
+using System.Net.Mail;
+using System.Net;
 
 namespace Unihack.Web
 {
@@ -122,5 +124,35 @@ namespace Unihack.Web
                 return null;
             }
         }
+        public static void sendMail(string toEmail, string BodyEmail)
+        {
+            var fromAddress = new MailAddress("eduarddohr1@gmail.com", "SmartCollectors");
+            var toAddress = new MailAddress(toEmail, "To Name");
+            const string fromPassword = "19970424";
+            const string subject = "Subject";
+            string body = BodyEmail;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
+            }
+        }
+
     }
 }
+
+
+

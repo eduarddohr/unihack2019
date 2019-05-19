@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     if (Session["userId"] == null)
     {
         Response.Redirect("~/Account/Login");
@@ -16,9 +16,10 @@
         font-style: italic;
         box-shadow: 0 5px 20px 0 #c4c4ca;
     }
-
 </style>
-
+<script>
+    var markers = [];
+</script>
 <div class="topnav" style="height:48px">
     <img src="~/Content/Images/marker.png" class="marker-shape">
     <a class="active">Home</a>
@@ -40,78 +41,110 @@
 </div>
 
 <div class="box">
-    <div class="left-div" id="bins">
-        @Html.Partial("_BinsList", new List<unihackAPI.Models.BinModel>())
-    </div>
+    <div class="left-div">
+        @if (Session["userRole"].ToString() == "MANAGER")
+        {
+            <div class="wrap-input100 validate-input m-b-10" style="margin-top: 5px;">
 
-    @*<div class="right-div" id="map"></div>
-        <script>
-            var map;
-            function initMap() {
-                debugger;
-                //EasyLoading.show();
-                var uluru = { lat: 45.746746, lng: 21.237650 };
+                <select id="myList" class="input100" onchange="getCollectorBins()">
+                    <option value="-1">Select Collector</option>
 
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: {
-                        lat: 45.746746, lng: 21.237650
-                    },
-                    zoom: 15
-                });
-                debugger
-                AjaxHelper.getWithBase('Home/GetBinsAsync',
-                    {},
-                    function success(data) {
-                        debugger
-                        if (data) {
-                            data.map((item) => {
-                                var marker = new google.maps.Marker({
-                                    id: item.Id,
-                                    position: { lat: item.Latitude, lng: item.Longitude }, map: map,
-                                    icon: item.Type == 1 ? "/Content/Images/trash-32.png" : item.Type == 2 ?
-                                        "/Content/Images/garbage-32.png" : item.Type == 3 ? "/Content/Images/trash-can-32.png" : ""
-                                });
-                                marker.addListener('click', function () {
-                                    var element = $("#" + marker.id);
-                                    window.location.hash = "#" + marker.id;
-                                    $(".bin-container").removeClass("active-bin");
-                                    element.addClass("active-bin");
-                                });
-                            })
-                        }
-                    },
-                    function error(data) {
+
+                    @foreach (var item in ViewBag.Collectors)
+                    {
+                    <option value="@item.Id">
+                        @item.Name
+                    </option>
+                    <option id="@item.Id-email" value="@item.Email" style="display:none"></option>
 
                     }
-                )
-                map.addListener('click', function (e) {
-                    placeMarkerAndPanTo(e.latLng, map);
-                });
-                 function placeMarkerAndPanTo(latLng, map) {
-                var marker = new google.maps.Marker({
-                    position: latLng,
-                    map: map
-                });
-                map.panTo(latLng);
-                var cityCircle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: marker.position,
-                    radius: Math.sqrt(603502) * 100
-                });
-                }
-            }
-            
 
-           
-        </script>*@
+                </select>
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fas fa-user-tie"></i>
+                </span>
+            </div>
+            <div class="container-login100-form-btn p-t-10">
+                <button type="button" class="login100-form-btn" id="email-button" onclick="sendEmail()" style="display:none;margin-top: 6px;">
+                    Send Email
+                </button>
+            </div>
+        }
+        <div id="bins">
+
+            @Html.Partial("_BinsList", new List<unihackAPI.Models.BinModel>())
+        </div>
+    </div>
+    <div class="right-div" id="map"></div>
+    <script>
+        var map;
+        function initMap() {
+            debugger;
+            //EasyLoading.show();
+            var uluru = { lat: 45.746746, lng: 21.237650 };
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 45.746746, lng: 21.237650
+                },
+                zoom: 15
+            });
+            debugger
+            AjaxHelper.getWithBase('Home/GetBinsAsync',
+                {},
+                function success(data) {
+                    debugger
+                    if (data) {
+                        data.map((item) => {
+                            var marker = new google.maps.Marker({
+                                id: item.Id,
+                                position: { lat: item.Latitude, lng: item.Longitude }, map: map,
+                                icon: item.Type == 1 ? "/Content/Images/trash-32.png" : item.Type == 2 ?
+                                    "/Content/Images/garbage-32.png" : item.Type == 3 ? "/Content/Images/trash-can-32.png" : ""
+                            });
+                            marker.addListener('click', function () {
+                                var element = $("#" + marker.id);
+                                window.location.hash = "#" + marker.id;
+                                $(".bin-container").removeClass("active-bin");
+                                element.addClass("active-bin");
+                            });
+                            markers.push(marker);
+                        })
+                    }
+                },
+                function error(data) {
+
+                }
+            )
+            //map.addListener('click', function (e) {
+            //    placeMarkerAndPanTo(e.latLng, map);
+            //});
+            // function placeMarkerAndPanTo(latLng, map) {
+            //var marker = new google.maps.Marker({
+            //    position: latLng,
+            //    map: map
+            //});
+            //map.panTo(latLng);
+            //var cityCircle = new google.maps.Circle({
+            //    strokeColor: '#FF0000',
+            //    strokeOpacity: 0.8,
+            //    strokeWeight: 2,
+            //    fillColor: '#FF0000',
+            //    fillOpacity: 0.35,
+            //    map: map,
+            //    center: marker.position,
+            //    radius: Math.sqrt(603502) * 100
+            //});
+            //}
+        }
+
+
+
+    </script>
 </div>
-@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVJJvAhR9xX9ZGkgTDP5Ix0UDY8_Ox_pg&callback=initMap"
-    async defer></script>*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVJJvAhR9xX9ZGkgTDP5Ix0UDY8_Ox_pg&callback=initMap"
+    async defer></script>
 <script>
     $(document).ready(function () {
         debugger
@@ -125,5 +158,75 @@
             }
         )
     });
+</script>
+<script>
+    function getCollectorBins() {
+        debugger;
+        var id = $('#myList').val()
+        if (id == -1) {
+            window.location = "http://localhost:63063/Home/Index"
+            return;
+        }
+        AjaxHelper.getViewWithoutData(
+            "Home/GetBinsByCollector?Id="+id,
+            function (response) {
+                debugger
+                $("#bins").html(response);
+            },
+            function () {
+                debugger
+            }
+        )
+        for (var i = 0; i < markers.length; i++) {
+             markers[i].setMap(null);
+        }
+
+        markers = [];
+        AjaxHelper.getWithBase('Home/GetBinsByCollectorAsync?Id='+id,
+            {},
+            function success(data) {
+                debugger
+                if (data) {
+                    data.map((item) => {
+                        var marker = new google.maps.Marker({
+                            id: item.Id,
+                            position: { lat: item.Latitude, lng: item.Longitude }, map: map,
+                            icon: item.Type == 1 ? "/Content/Images/trash-32.png" : item.Type == 2 ?
+                                "/Content/Images/garbage-32.png" : item.Type == 3 ? "/Content/Images/trash-can-32.png" : ""
+                        });
+                        marker.addListener('click', function () {
+                            var element = $("#" + marker.id);
+                            window.location.hash = "#" + marker.id;
+                            $(".bin-container").removeClass("active-bin");
+                            element.addClass("active-bin");
+                        });
+                        markers.push(marker);
+                    })
+                }
+            },
+            function error(data) {
+                debugger
+            }
+        )
+        $('#email-button').css("display", "block");
+}
+
+</script>
+<script>
+    function sendEmail() {
+        debugger
+        var id = $('#myList').val();
+        var email = $('#' + id + "-email").val();
+        AjaxHelper.post(
+            "Home/SendEmail?email=" + email,
+            [],
+            function (response) {
+                debugger;
+            },
+            function () {
+
+            }
+        )
+    }
 </script>
 @Scripts.Render("~/bundles/home")

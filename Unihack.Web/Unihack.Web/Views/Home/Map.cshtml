@@ -1,0 +1,74 @@
+﻿<script>
+    var markers = [];
+</script>
+
+    <div  id="map" style="width:100%;height: -webkit-fill-available;"></div>
+    <script>
+        var map;
+        function initMap() {
+            debugger;
+            //EasyLoading.show();
+            var uluru = { lat: 45.746746, lng: 21.237650 };
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 45.746746, lng: 21.237650
+                },
+                zoom: 15
+            });
+            debugger
+            AjaxHelper.getWithBase('Home/GetBinsAsync',
+                {},
+                function success(data) {
+                    debugger
+                    if (data) {
+                        data.map((item) => {
+                            var marker = new google.maps.Marker({
+                                id: item.Id,
+                                position: { lat: item.Latitude, lng: item.Longitude }, map: map,
+                                icon: item.Type == 1 ? "/Content/Images/trash-32.png" : item.Type == 2 ?
+                                    "/Content/Images/garbage-32.png" : item.Type == 3 ? "/Content/Images/trash-can-32.png" : ""
+                            });
+                            marker.addListener('click', function () {
+                                var element = $("#" + marker.id);
+                                window.location.hash = "#" + marker.id;
+                                $(".bin-container").removeClass("active-bin");
+                                element.addClass("active-bin");
+                            });
+                            markers.push(marker);
+                        })
+                    }
+                },
+                function error(data) {
+
+                }
+            )
+            //map.addListener('click', function (e) {
+            //    placeMarkerAndPanTo(e.latLng, map);
+            //});
+            // function placeMarkerAndPanTo(latLng, map) {
+            //var marker = new google.maps.Marker({
+            //    position: latLng,
+            //    map: map
+            //});
+            //map.panTo(latLng);
+            //var cityCircle = new google.maps.Circle({
+            //    strokeColor: '#FF0000',
+            //    strokeOpacity: 0.8,
+            //    strokeWeight: 2,
+            //    fillColor: '#FF0000',
+            //    fillOpacity: 0.35,
+            //    map: map,
+            //    center: marker.position,
+            //    radius: Math.sqrt(603502) * 100
+            //});
+            //}
+        }
+
+
+
+    </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVJJvAhR9xX9ZGkgTDP5Ix0UDY8_Ox_pg&callback=initMap"
+    async defer></script>
+
+

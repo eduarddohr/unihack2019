@@ -90,5 +90,15 @@ namespace Unihack.Web
             return cmd;
         }
 
+        public static SqlCommand GetBinsByCollector(string id)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+            string str = "select bins.Id, bins.Name, bins.Type, bins.Latitude, bins.Longitude, bins.Capacity, asos.UserId from [dbo].[BinUserAssociation] as asos inner join [dbo].[Bins] as binson asos.BinId = bins.Id where asos.UserId=@mId";
+            cmd.CommandText = str;
+            cmd.Parameters.Add("@mId", SqlDbType.NVarChar).Value = id;
+            return cmd;
+        }
+
     }
 }

@@ -12,8 +12,29 @@ namespace Unihack.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+
+        public ActionResult Map()
         {
+            return View();
+        }
+
+        public async Task<ActionResult> Index()
+        {
+
+            List<CollectorModel> list = new List<CollectorModel>();
+
+            try
+            {
+                var userId = Session["userId"].ToString();
+                var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Collector/GetCollectorsByManager" + "?Id=" +Session["userId"].ToString());
+                list = new JavaScriptSerializer().Deserialize<List<CollectorModel>>(response);
+                ViewBag.Collectors = list;
+
+            }
+            catch (Exception ex)
+            {
+                var x = 1;
+            }
             return View();
         }
 
@@ -88,6 +109,7 @@ namespace Unihack.Web.Controllers
             {
                 var x = 1;
             }
+            if(Session["userRole"]!=null)
             if (Session["userRole"].ToString() == "manager")
             {
                 bins.ForEach(bin =>
@@ -117,6 +139,58 @@ namespace Unihack.Web.Controllers
             //    } 
             //},JsonRequestBehavior.AllowGet);
 
+        }
+
+        public async Task<PartialViewResult> GetBinsByCollector(string Id)
+        {
+            List<BinModel> bins = new List<BinModel>();
+            List<BinModel> binsFiltered = new List<BinModel>();
+            //var binsResult = Utils.ExecuteTable(SQLCommands.GetBinsByCollector(Id));
+            //bins = Utils.DataTableToList<BinModel>(binsResult);
+            try
+            {
+                var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Bins/GetBins");
+                bins = new JavaScriptSerializer().Deserialize<List<BinModel>>(response);
+
+            }
+            catch (Exception ex)
+            {
+                var x = 1;
+            }
+            bins.ForEach(bin =>
+            {
+                foreach(CollectorModel collector in bin.Collectors)
+                    if(collector.Id==Id)
+                    binsFiltered.Add(bin);
+            });
+
+            return PartialView("~/Views/Home/_BinsList.cshtml", binsFiltered);
+        }
+
+        public async Task<JsonResult> GetBinsByCollectorAsync(string Id)
+        {
+            List<BinModel> bins = new List<BinModel>();
+            List<BinModel> binsFiltered = new List<BinModel>();
+            //var binsResult = Utils.ExecuteTable(SQLCommands.GetBinsByCollector(Id));
+            //bins = Utils.DataTableToList<BinModel>(binsResult);
+            try
+            {
+                var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Bins/GetBins");
+                bins = new JavaScriptSerializer().Deserialize<List<BinModel>>(response);
+
+            }
+            catch (Exception ex)
+            {
+                var x = 1;
+            }
+            bins.ForEach(bin =>
+            {
+                foreach (CollectorModel collector in bin.Collectors)
+                    if (collector.Id == Id)
+                        binsFiltered.Add(bin);
+            });
+
+            return Json(binsFiltered,JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -191,5 +265,15 @@ namespace Unihack.Web.Controllers
             else binsFiltered = bins;
             return PartialView("~/Views/Home/_BinsList.cshtml", binsFiltered);
         }
+        [HttpPost]
+        public JsonResult SendEmail(string email)
+        {
+            var message = "Please verify you SmartCollector App! It seems that you have multiple bins to collect.";
+            Utils.sendMail(email, message);
+            return Json("Ok");
+        }
     }
+
+   
+
 }

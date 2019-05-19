@@ -37,6 +37,8 @@
                             <tr class="row100 head">
                                 <th class="cell100 column1"></th>
                                 <th class="cell100 column2" style="padding-left:27px">Name</th>
+                                <th class="cell100 column3">Activate</th>
+                                <th class="cell100 column3">Reject</th>
 
                             </tr>
                         </thead>
@@ -48,10 +50,12 @@
                         <tbody>
                             @foreach (var collector in Model)
                             {
-                                <tr class="row100 body">
-                                    <td class="cell100 column1"><img src="~/Content/Images/collector.png" style="width:35px"></td>
-                                    <td class="cell100 column2">@collector.Name</td>
-                                </tr>
+                            <tr class="row100 body">
+                                <td class="cell100 column1"><img src="~/Content/Images/collector.png" style="width:35px"></td>
+                                <td class="cell100 column2">@collector.Name</td>
+                                <td class="cell100 column3"><a class="action-button">ACTIVATE</a></td>
+                                <td class="cell100 column3"><a class="action-button">REJECT</a></td>
+                            </tr>
                             }
                         </tbody>
                     </table>
