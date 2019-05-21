@@ -40,7 +40,6 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "bluetooth";
-    Button btnOn, btnOff;
     TextView txtArduino, txtArduino2, txtArduino3;
     Handler h;
     final int RECIEVE_MESSAGE = 1;  // status pt.
@@ -59,13 +58,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout); //aleg layout
-        btnOn = (Button)findViewById(R.id.btnOn);   // buton led ON
-        btnOff = (Button) findViewById(R.id.btnOff);  // buton led OFF
         txtArduino = (TextView) findViewById(R.id.txtArduino);
         txtArduino2 = (TextView) findViewById(R.id.txtArduino2);
         txtArduino3 = (TextView) findViewById(R.id.txtArduino3);
-
-        //updateBin(33.4f);
 
         h = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -90,18 +85,17 @@ public class MainActivity extends AppCompatActivity {
                                     int distance = Integer.parseInt(separated[0]);
                                     int weight = Integer.parseInt(separated[1].trim());
 
-                                    float cD = 100 - (distance * 5);
-                                    float cW = (float) (weight * 0.05);
-                                    float Capacity = max(cD, cW);  //asta trimite Edu la baza de date
+                                    if(distance <= 20) {
+                                        float cD = 90 - (distance * 5);
+                                        float cW = (float) (weight * 0.05);
+                                        float Capacity = max(cD, cW);  //asta trimite Edu la baza de date
 
 
-                                    updateBin(Capacity);
-                                    txtArduino.setText(String.valueOf(Capacity));
-                                    txtArduino2.setText(String.valueOf(distance));
-                                    txtArduino3.setText(String.valueOf(weight));
-
-                                    btnOff.setEnabled(true);                                 //las butoanele sa se poata apasa
-                                    btnOn.setEnabled(true);
+                                        updateBin(Capacity);
+                                        txtArduino.setText(String.valueOf(Capacity));
+                                        txtArduino2.setText(String.valueOf(distance));
+                                        txtArduino3.setText(String.valueOf(weight));
+                                    }
                                 }
                                 catch (Exception e){
                                     Log.d("eroare la parse", e.toString());
@@ -124,19 +118,6 @@ public class MainActivity extends AppCompatActivity {
         };
         btAdapter = BluetoothAdapter.getDefaultAdapter();       // adaptor bluetooth
         checkBTState();
-        btnOn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //btnOn.setEnabled(false);
-                mConnectedThread.write("1");    // trimit "1" prin bluetooth
-            }
-        });
-        btnOff.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //btnOff.setEnabled(false);
-                mConnectedThread.write("0");    // trimit "2" prin bluetooth
-                txtArduino.setText("");
-            }
-        });
     }
 
     private float max(float dist,float weight){
