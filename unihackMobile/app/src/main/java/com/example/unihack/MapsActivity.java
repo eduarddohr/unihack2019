@@ -63,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     UserHandler handler = new UserHandler(this);
 
 
-    private FloatingActionButton btnFindPath; //asta am adaugat
+    private FloatingActionButton btnFindPath;
     private List<Marker> originMarkers = new ArrayList<>();
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
@@ -91,7 +91,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        //asta am adaugat
         btnFindPath = findViewById(R.id.btnFindPath);
         btnFindPath.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,18 +99,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
-    //asta am adaugat
     private void sendRequest() {
 
         try {
 
 
+/*
+            for(int i=0;i<fullBins.size()-1;i++){
+                new DirectionFinder(this, fullBins.get(i).Name, fullBins.get(i+1).Name).execute();
+                Log.d("Ajuns ",String.valueOf(i));
+            }*/
+            //new DirectionFinder(this, fullBins.get(0).Name, fullBins.get(1).Name).execute();
 
+            new DirectionFinder(this, "Piata Libertatii", "Strada Bujorilor").execute();
 
-
-
-            new DirectionFinder(this, "Strada Bujorilor", "Strada Aida").execute();
-            
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

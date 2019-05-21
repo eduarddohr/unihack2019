@@ -5,4 +5,5 @@ public class CollectorModel {
     public String Id;
 
     public String Name;
+    public String Email;
 }
