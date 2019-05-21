@@ -118,7 +118,7 @@ namespace ResoApi
         public static SqlCommand GetCollectorsByBin(Guid Id)
         {
             SqlCommand cmd = new SqlCommand();
-            string str = @"SELECT BUA.[UserId] as Id, U.Name as Name FROM[dbo].[BinUserAssociation] BUA
+            string str = @"SELECT BUA.[UserId] as Id, U.Name as Name, U.Email FROM[dbo].[BinUserAssociation] BUA
                              inner join[dbo].[AspNetUsers] U on BUA.UserId = U.Id where BinId = @mID";
             cmd.CommandText = str;
             cmd.Parameters.Add("@mId", SqlDbType.UniqueIdentifier).Value = Id;
@@ -129,7 +129,7 @@ namespace ResoApi
         public static SqlCommand GetCollectorsByManager(string Id)
         {
             SqlCommand cmd = new SqlCommand();
-            string str = @"select MCA.ColectorId as Id, U.Name as Name from [dbo].[ManagerCollectorAssociation] MCA
+            string str = @"select MCA.ColectorId as Id, U.Name as Name, U.Email from [dbo].[ManagerCollectorAssociation] MCA
                 inner join [dbo].[AspNetUsers] U on MCA.ColectorId = U.Id
                 where  ManagerId=@mId";
             cmd.Parameters.Add("@mId", SqlDbType.NVarChar).Value = Id;
