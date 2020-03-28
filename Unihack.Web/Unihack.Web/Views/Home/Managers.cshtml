@@ -2,12 +2,13 @@
 @{
     ViewBag.Title = "Managers";
 }
+@Styles.Render("~/Content/login")
 @Styles.Render("~/Content/table-main")
 @Styles.Render("~/Content/perfect-scrollbar")
 @Styles.Render("~/Content/topnav")
 <style>
-    a{
-        font-family:"Montserrat-Regular"
+    a {
+        font-family: "Montserrat-Regular"
     }
 
 
@@ -15,7 +16,6 @@
         height: -webkit-fill-available;
         background-image: url(../Content/Images/manager.jpg);
     }
-
 </style>
 <div class="topnav" style="height:48px">
     <img src="~/Content/Images/marker.png" class="marker-shape">
@@ -25,52 +25,122 @@
     <a onclick="logout()" style="float:right">Logout</a>
 </div>
 <div class="body-container">
-        <div class="container-table100">
-            <div class="wrap-table100">
-                <div class="table100 ver1 m-b-110">
-                    <div class="table100-head">
-                        <table style="border-collapse:collapse;text-align:left">
-                            <thead>
-                                <tr class="row100 head">
-                                    <th class="cell100 column1"></th>
-                                    <th class="cell100 column2">Name</th>
-                                    <th class="cell100 column2">Email</th>
-                                    <th class="cell100 column2">Zone</th>
-                                    <th class="cell100 column3">Activate</th>
-                                    <th class="cell100 column3">Reject</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+    <div class="container-table100">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add manager
+        </button>
+        <div class="wrap-table100">
+            <div class="table100 ver1 m-b-110">
+                <div class="table100-head">
+                    <table style="border-collapse:collapse;text-align:left">
+                        <thead>
+                            <tr class="row100 head">
+                                <th class="cell100 column1"></th>
+                                <th class="cell100 column2">Name</th>
+                                <th class="cell100 column2">Email</th>
+                                <th class="cell100 column2">Zone</th>
+                                <th class="cell100 column3">Activate</th>
+                                <th class="cell100 column3">Reject</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
 
-                    <div class="table100-body js-pscroll">
-                        <table style="border-collapse:collapse;text-align:left">
-                            <tbody>
-                                @foreach (var manager in Model)
-                                {
-                                    <tr class="row100 body">
-                                        <td class="cell100 column1"><img src="~/Content/Images/pending.png" style="width:35px"></td>
-                                        <td class="cell100 column2">@manager.Name</td>
-                                        <td class="cell100 column2">@manager.Email</td>
-                                        <td class="cell100 column2">@manager.ZoneName</td>
-                                        <td class="cell100 column3"><a class="action-button">ACTIVATE</a></td>
-                                        <td class="cell100 column3"><a class="action-button">REJECT</a></td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table100-body js-pscroll">
+                    <table style="border-collapse:collapse;text-align:left">
+                        <tbody>
+                            @foreach (var manager in Model)
+                            {
+                                <tr class="row100 body">
+                                    <td class="cell100 column1"><img src="~/Content/Images/pending.png" style="width:35px"></td>
+                                    <td class="cell100 column2">@manager.Name</td>
+                                    <td class="cell100 column2">@manager.Email</td>
+                                    <td class="cell100 column2">@manager.ZoneName</td>
+                                    <td class="cell100 column3"><a class="action-button">ACTIVATE</a></td>
+                                    <td class="cell100 column3"><a class="action-button">REJECT</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    @Scripts.Render("~/bundles/perfect-scrollbar")
-    <script>
-        $('.js-pscroll').each(function () {
-            var ps = new PerfectScrollbar(this);
+</div>
 
-            $(window).on('resize', function () {
-                ps.update();
-            })
-        });
-    </script>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 430px !important">
+        <div class="modal-content" >
+            <div class="modal-header" style="text-align:center">
+                <h4 class="modal-title" id="exampleModalLabel" style="display: inline-block;">Add manager</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="line-height: 30px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                    <div class="wrap-login100 p-b-30">
+                        <form class="login100-form validate-form" method="post">
+                         
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Email is required">
+                                <input class="input100" id="m-name" type="text" name="email" placeholder="Name" required>
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Email is required">
+                                <input class="input100" id="m-email" type="text" name="email" placeholder="Email" required>
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                                <input class="input100" id="m-pass" type="password" name="pass" placeholder="Password" required>
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Confirmation is required">
+                                <input class="input100" id="m-pass2" type="password" name="pass2" placeholder="Confirm Password" required>
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input m-b-10" data-validate="Confirmation is required">
+                                <input class="input100" id="zone" type="text" name="zone" placeholder="Zone" required>
+                                <span class="focus-input100"></span>
+                                <span class="symbol-input100">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" onclick="addManager()" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/perfect-scrollbar")
+<script>
+    $('.js-pscroll').each(function () {
+        var ps = new PerfectScrollbar(this);
+
+        $(window).on('resize', function () {
+            ps.update();
+        })
+    });
+</script>
