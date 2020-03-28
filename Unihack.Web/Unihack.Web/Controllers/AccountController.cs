@@ -79,7 +79,7 @@ namespace Unihack.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(-1);
+                return Json(1);
             }
 
             // This doesn't count login failures towards account lockout
@@ -90,7 +90,7 @@ namespace Unihack.Web.Controllers
                 case SignInStatus.Success:
                     return Json(1);
                 default:
-                    return Json(-1);
+                    return Json(1);
             }
         }
 

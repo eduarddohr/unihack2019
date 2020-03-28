@@ -28,8 +28,30 @@ namespace Unihack.Web.Controllers
             
             try
             {
-                var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Manager/GetManagers");
-                list = new JavaScriptSerializer().Deserialize<List<ManagerModel>>(response);
+                //var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Manager/GetManagers");
+                //list = new JavaScriptSerializer().Deserialize<List<ManagerModel>>(response);
+                list = new List<ManagerModel>()
+                {
+                    new ManagerModel()
+                    {
+                        Id = "00ee0c85-e109-4b65-8a96-472eb04523e4",
+                        Email = "mail@s.com",
+                        ZoneName = "complex",
+                        Name = "Gigi"
+                    },new ManagerModel()
+                    {
+                        Id = "00ee0c85-e109-4b65-8a91-472eb04523e4",
+                        Email = "mail1@s.com",
+                        ZoneName = "complex",
+                        Name = "Carla"
+                    },new ManagerModel()
+                    {
+                        Id = "00ee0c85-e109-4b65-8a90-472eb04523e4",
+                        Email = "mail2@s.com",
+                        ZoneName = "sagului",
+                        Name = "Mihai"
+                    },
+                };
 
             }
             catch (Exception ex)
@@ -58,53 +80,139 @@ namespace Unihack.Web.Controllers
         public async System.Threading.Tasks.Task<JsonResult> GetBinsAsync()
         {
             List<BinModel> issues = new List<BinModel>();
-            try
-            {
-                var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Bins/GetBins");
-                issues = new JavaScriptSerializer().Deserialize<List<BinModel>>(response);
+            //try
+            //{
+            //    var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Bins/GetBins");
+            //    issues = new JavaScriptSerializer().Deserialize<List<BinModel>>(response);
 
-            }
-            catch (Exception ex)
-            {
-                var x = 1;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    var x = 1;
+            //}
 
-            return Json(issues, JsonRequestBehavior.AllowGet);
+            //return Json(issues, JsonRequestBehavior.AllowGet);
 
-            //return Json(new [] {
-            //    new IssueModel(){
-            //        Id =Guid.NewGuid(),
-            //        Latitude=45.02f,
-            //        Longitude=21f
-            //    } ,
-            //    new IssueModel(){
-            //        Id =Guid.NewGuid(),
-            //        Latitude=45.1234f,
-            //        Longitude=21.098f
-            //    } ,
-            //    new IssueModel(){
-            //        Id =Guid.NewGuid(),
-            //        Latitude=45.5012f,
-            //        Longitude=21.4444f
-            //    } 
-            //},JsonRequestBehavior.AllowGet);
+            return Json(new[] {
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.02f,
+                    Longitude=21f,
+                    Type = 1
+                } ,
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.1234f,
+                    Longitude=21.098f,
+                    Type = 1
+                } ,
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.5012f,
+                    Longitude=21.4444f,
+                    Type = 1
+                } 
+            },JsonRequestBehavior.AllowGet);
 
         }
 
         [HttpGet]
         public async System.Threading.Tasks.Task<PartialViewResult> GetBins()
         {
-            List<BinModel> issues = new List<BinModel>();
-            try
-            {
-                var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Bins/GetBins");
-                issues = new JavaScriptSerializer().Deserialize<List<BinModel>>(response);
+            List<BinModel> issues = new List<BinModel>() {
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.02f,
+                    Longitude=21f,
+                    Type = 1
+                } ,
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.1234f,
+                    Longitude=21.098f,
+                    Type = 2
+                } ,
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.5012f,
+                    Longitude=21.4444f,
+                    Type = 2
+                }
+                ,
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.5012f,
+                    Longitude=21.4444f,
+                    Type = 3
+                },
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.5012f,
+                    Longitude=21.4444f,
+                    Type = 1
+                },
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.5012f,
+                    Longitude=21.4444f,
+                    Type = 3
+                },
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.5012f,
+                    Longitude=21.4444f,
+                    Type = 2
+                },
+                new BinModel(){
+                    Name = "Piata x",
+                    Capacity = 33.4f,
+                    ManagerName = "Gigi",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.5012f,
+                    Longitude=21.4444f,
+                    Type = 1
+                }
+            };
+            //try
+            //{
+            //    var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Bins/GetBins");
+            //    issues = new JavaScriptSerializer().Deserialize<List<BinModel>>(response);
 
-            }
-            catch (Exception ex)
-            {
-                var x = 1;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    var x = 1;
+            //}
 
             //List<BinViewModel> binsList = new List<BinViewModel>
             //{

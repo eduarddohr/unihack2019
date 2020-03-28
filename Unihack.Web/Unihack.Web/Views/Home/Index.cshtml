@@ -10,13 +10,15 @@
         font-style: italic;
         box-shadow: 0 5px 20px 0 #c4c4ca;
     }
-
+    #map {
+        height: 890px;
+    }
 </style>
 
 <div class="topnav" style="height:48px">
     <img src="~/Content/Images/marker.png" class="marker-shape">
-    <a class="active">Home</a>
-    <a href="AddManager" style="width:125px">Add Manager</a>
+    <a class="active home">Home</a>
+    <a href="AddManager" style="width:170px">Add Manager</a>
     <a href="Managers" style="width: 80px">Managers</a>
     <a onclick="logout()" style="float:right">Logout</a>
 
@@ -28,50 +30,54 @@
     </div>
 
     <div class="right-div" id="map"></div>
-        <script>
-            var map;
-            function initMap() {
-                debugger;
-                //EasyLoading.show();
-                var uluru = { lat: 45.746746, lng: 21.237650 };
+    <script>
+        var map;
+        function initMap() {
+            debugger;
+            //EasyLoading.show();
+            var uluru = { lat: 45.746746, lng: 21.237650 };
 
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: {
-                        lat: 45.746746, lng: 21.237650
-                    },
-                    zoom: 15
-                });
-                debugger
-                AjaxHelper.getWithBase('Home/GetBinsAsync',
-                    {},
-                    function success(data) {
-                        debugger
-                        if (data) {
-                            data.map((item) => {
-                                var marker = new google.maps.Marker({
-                                    id: item.Id,
-                                    position: { lat: item.Latitude, lng: item.Longitude }, map: map,
-                                    icon: item.Type == 1 ? "/Content/Images/trash-32.png" : item.Type == 2 ?
-                                        "/Content/Images/garbage-32.png" : item.Type == 3 ? "/Content/Images/trash-can-32.png" : ""
-                                });
-                                marker.addListener('click', function () {
-                                    var element = $("#" + marker.id);
-                                    window.location.hash = "#" + marker.id;
-                                    $(".bin-container").removeClass("active-bin");
-                                    element.addClass("active-bin");
-                                });
-                            })
-                        }
-                    },
-                    function error(data) {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 45.746746, lng: 21.237650
+                },
+                zoom: 15
+            });
 
+            AjaxHelper.getWithBase('Home/GetBinsAsync',
+                {},
+                function success(data) {
+                    debugger
+                    if (data) {
+                        data.map((item) => {
+                            var marker = new google.maps.Marker({
+                                id: item.Id,
+                                position: { lat: item.Latitude, lng: item.Longitude }, map: map,
+                                icon: item.Type == 1 ? "/Content/Images/trash-32.png" : item.Type == 2 ?
+                                    "/Content/Images/garbage-32.png" : item.Type == 3 ? "/Content/Images/trash-can-32.png" : ""
+                            });
+                            marker.addListener('click', function () {
+                                var element = $("#" + marker.id);
+                                window.location.hash = "#" + marker.id;
+                                $(".bin-container").removeClass("active-bin");
+                                element.addClass("active-bin");
+                            });
+                        })
                     }
-                )
-            }
-        </script>
+                },
+                function error(data) {
+
+                }
+            )
+
+        }
+    </script>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVJJvAhR9xX9ZGkgTDP5Ix0UDY8_Ox_pg&callback=initMap"
-    async defer></script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVJJvAhR9xX9ZGkgTDP5Ix0UDY8_Ox_pg&callback=initMap"
+        type="text/javascript"></script>
+
+
 <script>
     $(document).ready(function () {
         debugger
