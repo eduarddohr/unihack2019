@@ -35,22 +35,29 @@ namespace Unihack.Web.Controllers
                     new ManagerModel()
                     {
                         Id = "00ee0c85-e109-4b65-8a96-472eb04523e4",
-                        Email = "mail@s.com",
-                        ZoneName = "complex",
-                        Name = "Gigi"
+                        Email = "dohr.eduard@zahoo.com",
+                        ZoneName = "Dacia",
+                        Name = "Dohr Eduard"
                     },new ManagerModel()
                     {
                         Id = "00ee0c85-e109-4b65-8a91-472eb04523e4",
-                        Email = "mail1@s.com",
-                        ZoneName = "complex",
-                        Name = "Carla"
+                        Email = "david.mihai@zahoo.com",
+                        ZoneName = "Sagului",
+                        Name = "David Mihai"
                     },new ManagerModel()
                     {
                         Id = "00ee0c85-e109-4b65-8a90-472eb04523e4",
-                        Email = "mail2@s.com",
-                        ZoneName = "sagului",
-                        Name = "Mihai"
+                        Email = "morar.carla@yahoo.com",
+                        ZoneName = "Complex",
+                        Name = "Morar Ana Carla"
                     },
+                    new ManagerModel()
+                    {
+                        Id = "00ee0c85-ea09-4b65-8a90-472eb04523e4",
+                        Email = "motiu.marcela@yahoo.com",
+                        ZoneName = "Complex",
+                        Name = "Motiu Marcela Daiana"
+                    }
                 };
 
             }
@@ -79,7 +86,7 @@ namespace Unihack.Web.Controllers
         [HttpGet]
         public async System.Threading.Tasks.Task<JsonResult> GetBinsAsync()
         {
-            List<BinModel> issues = new List<BinModel>();
+            //List<BinModel> issues = new List<BinModel>();
             //try
             //{
             //    var response = await Startup.client.GetStringAsync("https://unihackapi.azurewebsites.net/api/Bins/GetBins");
@@ -92,36 +99,73 @@ namespace Unihack.Web.Controllers
             //}
 
             //return Json(issues, JsonRequestBehavior.AllowGet);
+            List<BinModel> issues = new List<BinModel>() {
+                new BinModel(){
+                    Name = "Circumvalatiunii",
+                    Capacity = 33.4f,
+                    ManagerName = "Tudor Gabriel",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.759f,
+                    Longitude=21.213f,
+                    Type = 1
+                } ,
+                new BinModel(){
+                    Name = "Dacia",
+                    Capacity = 73.4f,
+                    ManagerName = "Catalin Ionescu",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.765f,
+                    Longitude=21.219f,
+                    Type = 2
+                } ,
+                new BinModel(){
+                    Name = "Iulius Towm",
+                    Capacity = 33.4f,
+                    ManagerName = "Dorel Popescu",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.765f,
+                    Longitude=21.227f,
+                    Type = 2
+                },
+                new BinModel(){
+                    Name = "Bastion",
+                    Capacity = 90.4f,
+                    ManagerName = "George Marin",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.756f,
+                    Longitude=21.234f,
+                    Type = 1
+                },
+                new BinModel(){
+                    Name = "Aleea Studentilor",
+                    Capacity = 5.4f,
+                    ManagerName = "Ion Ionel",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.7471f,
+                    Longitude=21.237f,
+                    Type = 3
+                },
+                new BinModel(){
+                    Name = "Olimpia Stadion",
+                    Capacity = 33.4f,
+                    ManagerName = "Octavian Dudas",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.741f,
+                    Longitude=21.243f,
+                    Type = 2
+                },
+                new BinModel(){
+                    Name = "Soarelui",
+                    Capacity = 53.4f,
+                    ManagerName = "Gigi Pop",
+                    Id =Guid.NewGuid(),
+                    Latitude=45.7345f,
+                    Longitude=21.244f,
+                    Type = 1
+                }
+            };
 
-            return Json(new[] {
-                new BinModel(){
-                    Name = "Piata x",
-                    Capacity = 33.4f,
-                    ManagerName = "Gigi",
-                    Id =Guid.NewGuid(),
-                    Latitude=45.02f,
-                    Longitude=21f,
-                    Type = 1
-                } ,
-                new BinModel(){
-                    Name = "Piata x",
-                    Capacity = 33.4f,
-                    ManagerName = "Gigi",
-                    Id =Guid.NewGuid(),
-                    Latitude=45.1234f,
-                    Longitude=21.098f,
-                    Type = 1
-                } ,
-                new BinModel(){
-                    Name = "Piata x",
-                    Capacity = 33.4f,
-                    ManagerName = "Gigi",
-                    Id =Guid.NewGuid(),
-                    Latitude=45.5012f,
-                    Longitude=21.4444f,
-                    Type = 1
-                } 
-            },JsonRequestBehavior.AllowGet);
+            return Json(issues, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -130,76 +174,66 @@ namespace Unihack.Web.Controllers
         {
             List<BinModel> issues = new List<BinModel>() {
                 new BinModel(){
-                    Name = "Piata x",
+                    Name = "Circumvalatiunii",
                     Capacity = 33.4f,
-                    ManagerName = "Gigi",
+                    ManagerName = "Tudor Gabriel",
                     Id =Guid.NewGuid(),
-                    Latitude=45.02f,
-                    Longitude=21f,
+                    Latitude=45.759f,
+                    Longitude=21.213f,
                     Type = 1
                 } ,
                 new BinModel(){
-                    Name = "Piata x",
-                    Capacity = 33.4f,
-                    ManagerName = "Gigi",
+                    Name = "Dacia",
+                    Capacity = 73.4f,
+                    ManagerName = "Catalin Ionescu",
                     Id =Guid.NewGuid(),
-                    Latitude=45.1234f,
-                    Longitude=21.098f,
+                    Latitude=45.765f,
+                    Longitude=21.219f,
                     Type = 2
                 } ,
                 new BinModel(){
-                    Name = "Piata x",
+                    Name = "Iulius Towm",
                     Capacity = 33.4f,
-                    ManagerName = "Gigi",
+                    ManagerName = "Dorel Popescu",
                     Id =Guid.NewGuid(),
-                    Latitude=45.5012f,
-                    Longitude=21.4444f,
+                    Latitude=45.765f,
+                    Longitude=21.227f,
                     Type = 2
-                }
-                ,
-                new BinModel(){
-                    Name = "Piata x",
-                    Capacity = 33.4f,
-                    ManagerName = "Gigi",
-                    Id =Guid.NewGuid(),
-                    Latitude=45.5012f,
-                    Longitude=21.4444f,
-                    Type = 3
                 },
                 new BinModel(){
-                    Name = "Piata x",
-                    Capacity = 33.4f,
-                    ManagerName = "Gigi",
+                    Name = "Bastion",
+                    Capacity = 90.4f,
+                    ManagerName = "George Marin",
                     Id =Guid.NewGuid(),
-                    Latitude=45.5012f,
-                    Longitude=21.4444f,
+                    Latitude=45.756f,
+                    Longitude=21.234f,
                     Type = 1
                 },
                 new BinModel(){
-                    Name = "Piata x",
-                    Capacity = 33.4f,
-                    ManagerName = "Gigi",
+                    Name = "Aleea Studentilor",
+                    Capacity = 5.4f,
+                    ManagerName = "Ion Ionel",
                     Id =Guid.NewGuid(),
-                    Latitude=45.5012f,
-                    Longitude=21.4444f,
+                    Latitude=45.7471f,
+                    Longitude=21.237f,
                     Type = 3
                 },
                 new BinModel(){
-                    Name = "Piata x",
+                    Name = "Olimpia Stadion",
                     Capacity = 33.4f,
-                    ManagerName = "Gigi",
+                    ManagerName = "Octavian Dudas",
                     Id =Guid.NewGuid(),
-                    Latitude=45.5012f,
-                    Longitude=21.4444f,
+                    Latitude=45.741f,
+                    Longitude=21.243f,
                     Type = 2
                 },
                 new BinModel(){
-                    Name = "Piata x",
-                    Capacity = 33.4f,
-                    ManagerName = "Gigi",
+                    Name = "Soarelui",
+                    Capacity = 53.4f,
+                    ManagerName = "Gigi Pop",
                     Id =Guid.NewGuid(),
-                    Latitude=45.5012f,
-                    Longitude=21.4444f,
+                    Latitude=45.7345f,
+                    Longitude=21.244f,
                     Type = 1
                 }
             };

@@ -854,7 +854,6 @@ C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\bin\Microsoft.
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\bin\Microsoft.AI.Web.xml
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.csprojAssemblyReference.cache
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.Migrations.InitialCreate.resources
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.Migrations.Ceva.resources
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.csproj.GenerateResource.cache
@@ -862,3 +861,4 @@ C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unih
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.csproj.CopyComplete
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.dll
 C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.pdb
+C:\Users\Marcela\Desktop\Proiecte\unihack\Unihack.Web\Unihack.Web\obj\Debug\Unihack.Web.csprojAssemblyReference.cache
