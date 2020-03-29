@@ -7,17 +7,23 @@
 @Styles.Render("~/Content/perfect-scrollbar")
 @Styles.Render("~/Content/topnav")
 <style>
+    body {
+        background-color: #f3f1e3;
+    }
+
     a {
         font-family: "Montserrat-Regular"
     }
     #modal-manager input {
         border: 1px solid black !important;
+        margin-bottom: 4px;
     }
 
     .body-container {
         height: -webkit-fill-available;
         /*background-image: url(../Content/Images/manager.jpg);*/
     }
+
     .modal-manager-button {
         top: 85px;
         position: absolute;
@@ -142,7 +148,7 @@
                     </div>
                 </div>
             <div class="modal-footer">
-                <button type="button" onclick="addManager()" class="btn btn-primary">Save</button>
+                <button type="button" onclick="addManager()" class="btn btn-primary" style="background-color:#D2691E; border-color: #D2691E;">Save</button>
             </div>
         </div>
     </div>
